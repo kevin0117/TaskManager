@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  task_begin: 2019-12-31 11:05:59
+  task_end: 2019-12-31 11:05:59
+  priority: 1
+  status: 1
+
+two:
+  title: MyString
+  content: MyText
+  task_begin: 2019-12-31 11:05:59
+  task_end: 2019-12-31 11:05:59
+  priority: 1
+  status: 1
