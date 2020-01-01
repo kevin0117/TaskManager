@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+- 2.6.3
+services:
+  - postgresql
+env:
+  - DB=pgsql
+# If your local test setup uses different credentials or settings to access 
+# the local test database, we recommend putting these settings 
+# in a database.yml.travis in your repository and copying that over 
+# as part of your build: below
+# https://docs.travis-ci.com/user/database-setup/
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+script:
+  - bundle exec rake db:setup
+  - RAILS_ENV=test bundle exec rake db:migrate
+  - bundle exec rake spec
