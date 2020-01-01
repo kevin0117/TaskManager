@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  describe "Task Information" do 
-    it "is valid with a title, content, task date, priority, and status" do
+  describe "Model spec/單元測試" do 
+    it "任務建立成功當全部欄位正確填寫完成" do
       task = Task.new(title: "Shopping", 
                       content: "buy apple", 
                       task_begin: "2019-11-01 09:00:00",
@@ -12,7 +12,7 @@ RSpec.describe Task, type: :model do
       expect(task).to be_valid
     end
 
-    it "title field is blank" do
+    it "名稱欄位不能是空白，如果成功任務建立" do
       task = Task.new(title: "", 
                       content: "buy apple", 
                       task_begin: "2019-11-01 09:00:00",
@@ -24,7 +24,7 @@ RSpec.describe Task, type: :model do
         }.to raise_exception(/Title can't be blank/)
     end
     
-    it "content field is blank" do
+    it "內容不能是空白，如果成功任務建立" do
       task = Task.new(title: "Shopping", 
                       content: "", 
                       task_begin: "2019-11-01 09:00:00",
@@ -36,7 +36,7 @@ RSpec.describe Task, type: :model do
         }.to raise_exception(/Content can't be blank/)
     end
     
-    it "Task begin field is blank" do
+    it "任務開始日期不能是空白，如果成功任務建立" do
       task = Task.new(title: "Shopping", 
                       content: "buy apple", 
                       task_begin: "",
@@ -48,7 +48,7 @@ RSpec.describe Task, type: :model do
         }.to raise_exception(/Task begin can't be blank/)
     end
     
-    it "Task end field is blank" do
+    it "任務結束日期不能是空白，如果成功任務建立" do
       task = Task.new(title: "Shopping", 
                       content: "buy apple", 
                       task_begin: "2019-11-01 09:00:00",
@@ -60,7 +60,7 @@ RSpec.describe Task, type: :model do
         }.to raise_exception(/Task end can't be blank/)
     end
     
-    it "priority field is blank" do
+    it "任務優先順序不能是空白，如果成功任務建立" do
       task = Task.new(title: "Shopping", 
                       content: "buy apple", 
                       task_begin: "2019-11-01 09:00:00",
@@ -72,7 +72,7 @@ RSpec.describe Task, type: :model do
         }.to raise_exception(/Priority can't be blank/)
     end
     
-    it "status field is blank" do
+    it "任務狀態不能是空白，如果成功任務建立" do
       task = Task.new(title: "Shopping", 
                       content: "buy apple", 
                       task_begin: "2019-11-01 09:00:00",

@@ -14,7 +14,8 @@ class TasksController < ApplicationController
       if @task.save
         redirect_to tasks_path, notice: "建立成功"
       else
-        render :new, flash[:notice] = "建立失敗"
+        flash[:notice] = "建立失敗"
+        render :new
         #render :new, notice: "建立失敗"  
         #這裡的 render :new, notice: "建立失敗"
         #其實是類似 render partial 的概念， 把 notice:"建立失敗" 當參數帶進去
@@ -26,7 +27,8 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         redirect_to tasks_path, notice: "更新成功"
       else
-        render :edit, flash[:notice] = "編輯失敗"
+        flash[:notice] = "編輯失敗"
+        render :edit
       end
     end
   
