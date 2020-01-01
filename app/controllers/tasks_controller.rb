@@ -26,7 +26,8 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         redirect_to tasks_path, notice: "更新成功"
       else
-        render :edit, flash[:notice] = "編輯失敗"
+        flash[:notice] = "編輯失敗"
+        render :edit
       end
     end
   
