@@ -10,10 +10,10 @@ RSpec.feature "Task", type: :feature do
       fill_in "task_content", with: "buy milk"
       select '2018', from: 'task_task_begin_1i'
       select '2019', from: 'task_task_end_1i'
-      select 'normal', from: 'task_priority'
-      select 'pending', from: 'task_status'
+      select '還好', from: 'task_priority'
+      select '未進行', from: 'task_status'
   
-      click_button "Create Task"
+      click_button "送出"
   
       expect(page).to have_text("建立成功")
     end 
@@ -28,10 +28,10 @@ RSpec.feature "Task", type: :feature do
       fill_in "task_content", with: "buy milk"
       select '2018', from: 'task_task_begin_1i'
       select '2019', from: 'task_task_end_1i'
-      select 'urgent', from: 'task_priority'
-      select 'pending', from: 'task_status'
+      select '超急', from: 'task_priority'
+      select '進行中', from: 'task_status'
   
-      click_button "Create Task"
+      click_button "送出"
   
       expect(page).to have_text("建立失敗")
     end
@@ -56,7 +56,7 @@ RSpec.feature "Task", type: :feature do
         click_on "編輯"
       end
       fill_in "task_content", with: "apple"
-      click_button "Update Task"
+      click_button "送出"
       
       expect(page).to have_text("更新成功")
     end
