@@ -27,7 +27,71 @@
 #   'true': 'foo'
 #
 # To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
+# available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  shared:
+    frontend:
+      navbar:
+        language:  "Language"
+        user_info: "Profile"
+        my_task: "My Task"
+        new_task: "New Task"
+        settings: "Settings"
+        logout: "Log Out"
+        search: "Search"
+  tasks:
+    task_id: "ID"
+    task_title:  "Title"
+    task_content:  "Content"
+    task_priority:  "Priority"
+    priority_low: "low"
+    priority_normal: "normal"
+    priority_urgent: "urgent"
+    task_status: "Status"
+    status_pending: "Pending"
+    status_proceeding: "Proceeding"
+    status_done:  "Done"
+    task_begin: "Begin"
+    task_end: "End"
+    task_owner: "Owner"
+    index_task: "Task List"
+    index_user: "User List"
+    edit_title: "Edit Task"
+    new_title: "Create Task"
+    show_title: "Task Title"
+    show_content: "About Task"
+    edit: "Edit"
+    show: "Show"
+    delete: "Delete"
+    create: "Create Task"
+    submit: "Submit"
+    user:
+      my_task: "My Task"
+  users:
+    index_user: "User List"
+    edit: "Edit"
+    delete: "Delete"
+    create: "Add User"
+
+  attributes:
+    users:
+      admin: "Admin"
+      member: "Member"
+      role: "Role"
+      username: "Username"
+      email: "E-Mail"
+      action: "Action"
+      username: "Username"
+      email: "E-Mail"
+      password: "Password"
+      register_admin: "Register to be administrator"
+      account_info: "User Account"
+    
+    tasks:
+      task_count: "Task count"
+      backend: "Back-End"
+      tag: "Tag"
+
+  # admin: "Admin"
+  # member: "Member"
