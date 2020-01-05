@@ -1,11 +1,14 @@
 <%= simple_form_for(task) do |form| %>
 
-  <%= form.input :title, label: "任務名稱:" %>
-  <%= form.input :content, label: "任務內容:"  %>
-  <%= form.input :task_begin, label: "任務開始" %>
-  <%= form.input :task_end, label: "任務結束" %>
-  <%= form.input :priority, as: :select, collection:[["urgent", "urgent"], ["normal", "normal"], ["low", "low"]], label_method: :second, value_method: :first, label: "優先順序" %>
-  <%= form.input :status, as: :select, collection:[["pending", "pending"], ["proceeding", "proceeding"], ["done", "done"]], label_method: :second, value_method: :first, label: "任務狀態" %>
+  <%= form.input :title, label: t("tasks.task_title"), placeholder: "例如：市場買菜" %>
+  <%= form.input :content, label: t("tasks.task_content"), placeholder: "例如：雞蛋100顆"  %>
+  <%= form.input :task_begin, label: t("tasks.task_begin") %>
+  <%= form.input :task_end, label: t("tasks.task_end") %>
+  <%= form.input :priority, as: :select, collection:[['low', t('tasks.priority_low')], ['normal', t('tasks.priority_normal')], ['urgent', t('tasks.priority_urgent')]], label_method: :second, value_method: :first, label: t("tasks.task_priority") %>
+  <%= form.input :status, as: :select, collection:[['pending', t('tasks.status_pending')], ['proceeding', t('tasks.status_proceeding')], ['done', t('tasks.status_done')]], label_method: :second, value_method: :first, label: t("tasks.task_status") %>
 
 <%= form.submit %>
 <% end %>
+
+            <%= link_to('中文', :locale => 'zh-TW') %>
+            <%= link_to('English', :locale => 'en') %>
