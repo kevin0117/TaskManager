@@ -14,6 +14,7 @@ class TasksController < ApplicationController
       if @task.save
         redirect_to tasks_path, notice: "建立成功"
       else
+        @error_message = @task.errors.full_messages.to_sentence
         flash[:notice] = "建立失敗"
         render :new
         #render :new, notice: "建立失敗"  
@@ -27,6 +28,7 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         redirect_to tasks_path, notice: "更新成功"
       else
+        @error_message = @task.errors.full_messages.to_sentence
         flash[:notice] = "編輯失敗"
         render :edit
       end
