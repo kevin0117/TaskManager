@@ -86,5 +86,36 @@ RSpec.feature "Task", type: :feature do
       expect(page).to have_text("刪除成功")
     end
 
+    scenario "任務列表以建立時間排序" do
+      task1 = Task.create(title: "task1", 
+      content: "buy apple", 
+      task_begin: "2018-10-01 09:00:00",
+      task_end: "2019-11-01 00:00:00",
+      priority: "low",
+      status: "pending")
+  
+      task2 = Task.create(title: "task2", 
+        content: "buy apple", 
+        task_begin: "2018-10-01 09:00:00",
+        task_end: "2019-11-01 00:00:00",
+        priority: "low",
+        status: "pending")
+
+      task3 = Task.create(title: "task3", 
+        content: "buy apple", 
+        task_begin: "2018-10-01 09:00:00",
+        task_end: "2019-11-01 00:00:00",
+        priority: "low",
+        status: "pending")
+    
+      visit '/'
+  
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content("task2") 
+      end
+      within 'tr:nth-child(3)' do
+        expect(page).to have_content("task1") 
+      end
+    end
   end
 end
