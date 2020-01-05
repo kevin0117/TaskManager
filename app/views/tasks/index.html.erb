@@ -1,17 +1,21 @@
-<h1>任務總表</h1>
+<h1><%=t("tasks.index_task")%></h1>
+<div>
+<%= link_to('中文', :locale => 'zh-TW') %>
+<%= link_to('English', :locale => 'en') %>
+</div>
 
 <%= link_to "新增任務", new_task_path %>
 
 <table>
   <thead>
     <tr>
-      <td>任務ID</td>
-      <td>名稱</td>
-      <td>優先順序</td>
-      <td>狀態</td>
-      <td>任務開始</td>
-      <td>任務結束</td>
-      <td>操作</td>
+      <td><%= t("tasks.task_id") %></td>
+      <td><%= t("tasks.task_title") %></td>
+      <td><%= t("tasks.task_priority") %></td>
+      <td><%= t("tasks.task_status") %></td>
+      <td><%= t("tasks.task_begin") %></td>
+      <td><%= t("tasks.task_end") %></td>
+      <td><%= t('attributes.users.action') %></td>
     </tr>
   </thead>
   
@@ -20,13 +24,13 @@
     <tr>
       <td><%= task.id %></td>
       <td><%= link_to task.title, task_path(task) %></td>
-      <td><%= task.priority %></td>
-      <td><%= task.status %></td>
-      <td><%= task.task_begin %></td>
-      <td><%= task.task_end %></td>
+      <td><%= t("tasks.priority_#{task.priority}")  %></td>
+      <td><%= t("tasks.status_#{task.status}") %></td>
+      <td><%= task.task_begin.to_s(:short) %></td>
+      <td><%= task.task_end.to_s(:short) %></td>
       <td>
-        <%= link_to "編輯", edit_task_path(task) %>
-        <%= link_to "刪除", task_path(task), method: 'delete', data: { confirm:  "確認刪除嗎？" } %>
+        <%= link_to t("tasks.edit"), edit_task_path(task) %>
+        <%= link_to t("tasks.delete"), task_path(task), method: 'delete', data: { confirm:  "確認刪除嗎？" } %>
       </td>
     </tr>
     <% end %>

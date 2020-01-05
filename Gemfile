@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 gem 'simple_form', '~> 5.0', '>= 5.0.1'
+gem 'rails-i18n', '~> 6.0'
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -1,11 +1,15 @@
-<h1>任務內容</h1>
-
-<ul>
-  <li>任務ID：<%= @task.id %></li>
-  <li>任務名稱：<%= @task.title %></li>
-  <li>任務內容：<%= @task.content %></li>
-  <li>優先順序：<%= @task.priority %></li>
-  <li>任務狀態：<%= @task.status %></li>
-  <li>任務開始：<%= @task.task_begin %></li>
-  <li>任務結束：<%= @task.task_end %></li>
-</ul>
+<% if @task %>
+  <div class="card" style="width: 50rem;">
+    <h1><div class="card-header"> <%=t("tasks.show_content")%></div></h1>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%=t("tasks.show_title")%>：<%= @task.title %></li>
+      <li class="list-group-item"><%=t("tasks.show_content")%>：<%= @task.content %></li>
+      <li class="list-group-item"><%=t("tasks.task_begin")%>：<%= @task.task_begin %></li>
+      <li class="list-group-item"><%=t("tasks.task_end")%>：<%= @task.task_end %></li>
+      <li class="list-group-item"><%=t("tasks.task_priority")%>：<%= t("tasks.priority_#{@task.priority}") %></li>
+      <li class="list-group-item"><%=t("tasks.task_status")%>：<%= t("tasks.status_#{@task.status}") %></li>
+    </ul>
+  </div>
+<% else %>
+  <h1>沒有此任務</h1>
+<% end %>

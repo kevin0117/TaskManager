@@ -21,7 +21,7 @@ RSpec.describe Task, type: :model do
                       status: "pending")
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Title can't be blank/)
+        }.to raise_exception(/Title 不能為空白/)
     end
     
     it "內容不能是空白，如果成功任務建立" do
@@ -33,7 +33,7 @@ RSpec.describe Task, type: :model do
                       status: "pending")
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Content can't be blank/)
+        }.to raise_exception(/Content 不能為空白/)
     end
     
     it "任務開始日期不能是空白，如果成功任務建立" do
@@ -45,7 +45,7 @@ RSpec.describe Task, type: :model do
                       status: "pending")
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Task begin can't be blank/)
+        }.to raise_exception(/Task begin 不能為空白/)
     end
     
     it "任務結束日期不能是空白，如果成功任務建立" do
@@ -57,7 +57,7 @@ RSpec.describe Task, type: :model do
                       status: "pending")
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Task end can't be blank/)
+        }.to raise_exception(/Task end 不能為空白/)
     end
     
     it "任務優先順序不能是空白，如果成功任務建立" do
@@ -69,7 +69,7 @@ RSpec.describe Task, type: :model do
                       status: "pending")
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Priority can't be blank/)
+        }.to raise_exception(/Priority 不能為空白/)
     end
     
     it "任務狀態不能是空白，如果成功任務建立" do
@@ -81,7 +81,7 @@ RSpec.describe Task, type: :model do
                       status: "")
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Status can't be blank/)
+        }.to raise_exception(/Status 不能為空白/)
     end 
   end
 end
