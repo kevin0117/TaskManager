@@ -14,7 +14,7 @@
       <td><%= t("tasks.task_priority") %></td>
       <td><%= t("tasks.task_status") %></td>
       <td><%= t("tasks.task_begin") %></td>
-      <td><%= t("tasks.task_end") %></td>
+      <td><%= link_to t("tasks.task_end"), tasks_path(sort_param: 'task_end') %></td>
       <td><%= t('attributes.users.action') %></td>
     </tr>
   </thead>

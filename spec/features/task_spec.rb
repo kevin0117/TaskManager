@@ -88,11 +88,11 @@ RSpec.feature "Task", type: :feature do
 
     scenario "任務列表以建立時間排序" do
       task1 = Task.create(title: "task1", 
-      content: "buy apple", 
-      task_begin: "2018-10-01 09:00:00",
-      task_end: "2019-11-01 00:00:00",
-      priority: "low",
-      status: "pending")
+        content: "buy apple", 
+        task_begin: "2018-10-01 09:00:00",
+        task_end: "2019-11-01 00:00:00",
+        priority: "low",
+        status: "pending")
   
       task2 = Task.create(title: "task2", 
         content: "buy apple", 
@@ -115,6 +115,40 @@ RSpec.feature "Task", type: :feature do
       end
       within 'tr:nth-child(3)' do
         expect(page).to have_content("task1") 
+      end
+    end
+
+    scenario "任務列表以結束時間排序" do
+      task1 = Task.create(title: "task1", 
+        content: "buy apple", 
+        task_begin: "2018-10-01 09:00:00",
+        task_end: "2020-01-10 00:00:00",
+        priority: "low",
+        status: "pending")
+  
+      task2 = Task.create(title: "task2", 
+        content: "buy apple", 
+        task_begin: "2018-10-01 09:00:00",
+        task_end: "2020-01-11 00:00:00",
+        priority: "low",
+        status: "pending")
+
+      task3 = Task.create(title: "task3", 
+        content: "buy apple", 
+        task_begin: "2018-10-01 09:00:00",
+        task_end: "2020-01-12 00:00:00",
+        priority: "low",
+        status: "pending")
+
+      visit '/'
+
+      click_link "任務結束"
+
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content("task2") 
+      end
+      within 'tr:nth-child(3)' do
+        expect(page).to have_content("task3") 
       end
     end
   end

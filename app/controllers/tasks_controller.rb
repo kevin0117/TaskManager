@@ -2,7 +2,11 @@ class TasksController < ApplicationController
     before_action :find_task, only: [:edit, :show, :update, :destroy]
   
     def index
-      @tasks = Task.all.order(created_at: :desc)
+      if params[:sort_param] == 'task_end'
+        @tasks = Task.all.order(task_end: :asc)
+      else
+        @tasks = Task.all.order(created_at: :desc)
+      end
     end
   
     def new
