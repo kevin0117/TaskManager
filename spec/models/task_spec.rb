@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/AsciiComments
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
@@ -71,17 +74,17 @@ RSpec.describe Task, type: :model do
           expect(task).to be_valid
         }.to raise_exception(/Priority 不能為空白/)
     end
-    
-    it "任務狀態不能是空白，如果成功任務建立" do
-      task = Task.new(title: "Shopping", 
-                      content: "buy apple", 
-                      task_begin: "2019-11-01 09:00:00",
-                      task_end: "2019-11-01 00:00:00",
-                      priority: "urgent",
-                      status: "")
+    # require'AASM'後, 預設狀態會是pending, 即使使用者未填寫，任務也是可以建立成功
+    it '任務狀態不能是空白，如果成功任務建立' do
+      task = Task.new(title: 'Shopping',
+                      content: 'buy apple',
+                      task_begin: '2019-10-01 09:00:00',
+                      task_end: '2019-11-01 00:00:00',
+                      priority: 'urgent',
+                      status: '')
         expect {
           expect(task).to be_valid
-        }.to raise_exception(/Status 不能為空白/)
+        }
     end 
 
     it "任務建立失敗當結束時間設定錯誤" do
@@ -97,3 +100,4 @@ RSpec.describe Task, type: :model do
     end
   end
 end
+# rubocop:enable Style/AsciiComments
