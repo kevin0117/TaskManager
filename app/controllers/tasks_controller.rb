@@ -5,11 +5,8 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit show update destroy]
   def index
-    @tasks = if params[:sort_param] == 'task_end'
-               Task.all.order(task_end: :asc)
-             else
-               Task.all.order(created_at: :desc)
-             end
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
   end
 
   def new
