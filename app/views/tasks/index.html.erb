@@ -9,13 +9,22 @@
 <table>
   <thead>
     <tr>
-      <td><%= t("tasks.task_id") %></td>
+      <td><%= sort_link(@q, :id, t("tasks.task_id"), id: "title", default_order: :desc) %></td>
       <td><%= t("tasks.task_title") %></td>
       <td><%= t("tasks.task_priority") %></td>
-      <td><%= t("tasks.task_status") %></td>
       <td><%= t("tasks.task_begin") %></td>
-      <td><%= link_to t("tasks.task_end"), tasks_path(sort_param: 'task_end') %></td>
+      <td><%= sort_link(@q, :task_end, t("tasks.task_end"), id: "task_end", default_order: :asc) %></td>
+      <td>
+        <% if @q %>
+          <%= search_form_for @q do |f| %>
+            <%= f.input :status_eq, as: :select, collection:[[1, t('tasks.status_pending')], [2, t('tasks.status_proceeding')], [3, t('tasks.status_done')]], 
+                label_method: :second, value_method: :first, label: false %>
+            <%= f.submit class:"btn btn-outline-dark" , style: 'display: none;', id: "btn-status"%>
+          <% end %>
+        <% end %>
+      </td>
       <td><%= t('attributes.users.action') %></td>
+  
     </tr>
   </thead>
   
@@ -25,14 +34,32 @@
       <td><%= task.id %></td>
       <td><%= link_to task.title, task_path(task) %></td>
       <td><%= t("tasks.priority_#{task.priority}")  %></td>
-      <td><%= t("tasks.status_#{task.status}") %></td>
       <td><%= task.task_begin.to_s(:short) %></td>
-      <td><%= task.task_end.to_s(:short) %></td>
+      <td><%= task.task_end.to_s(:short) %></td>      
+      <td><%= t("tasks.status_#{task.status}") %></td>
       <td>
-        <%= link_to t("tasks.edit"), edit_task_path(task) %>
-        <%= link_to t("tasks.delete"), task_path(task), method: 'delete', data: { confirm:  "確認刪除嗎？" } %>
-      </td>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to t("tasks.edit"), edit_task_path(task) , class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>          
+          <%= link_to t("tasks.show"), task_path(task) , class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to t("tasks.delete"), task_path(task) , class: 'dropdown-item', method: 'delete', data: { confirm: "確認刪除嗎？"}%>
+      </td> 
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<script>
+
+$( document ).on('turbolinks:load', function() {
+  console.log("hihihi")
+  const status = document.getElementById('q_status_eq')
+
+  status.addEventListener('change', () => {
+    document.querySelector('#btn-status').click();
+  });
+
+});
+</script>
