@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[edit show update destroy]
   def index
     @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true)
+    @tasks = @q.result(distinct: true).order(created_at: :desc)
   end
 
   def new
