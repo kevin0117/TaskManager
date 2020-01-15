@@ -12,6 +12,7 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
   validate :date_validator
+  paginates_per 10
   include AASM
   # aasm 狀態機
   aasm column: 'status', enum: true do # , no_direct_assignment: true do

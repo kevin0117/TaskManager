@@ -1,22 +1,20 @@
 <h1><%=t("tasks.index_task")%></h1>
-<div>
-<%= link_to('中文', :locale => 'zh-TW') %>
-<%= link_to('English', :locale => 'en') %>
-</div>
 
 <%= link_to "新增任務", new_task_path %>
 <% if params[:q] %>
   <h4>搜尋結果共: <%= @tasks.count %> 筆 </h4>
 <% end %>
+
+<%= paginate @tasks, theme: 'twitter-bootstrap-4' %>
 <table>
   <thead>
     <tr>
-      <td><%= sort_link(@q, :id, t("tasks.task_id"), id: "title", default_order: :desc) %></td>
-      <td><%= t("tasks.task_title") %></td>
-      <td><%= sort_link(@q, :priority, t("tasks.task_priority"), id: "priority", default_order: :desc) %></td>
-      <td><%= t("tasks.task_begin") %></td>
-      <td><%= sort_link(@q, :task_end, t("tasks.task_end"), id: "task_end", default_order: :asc) %></td>
-      <td>
+      <th scope="col"><%= sort_link(@q, :id, t("tasks.task_id"), id: "title", default_order: :desc) %></th>
+      <th scope="col"><%= t("tasks.task_title") %></th>
+      <th scope="col"><%= sort_link(@q, :priority, t("tasks.task_priority"), id: "priority", default_order: :desc) %></th>
+      <th scope="col"><%= t("tasks.task_begin") %></th>
+      <th scope="col"><%= sort_link(@q, :task_end, t("tasks.task_end"), id: "task_end", default_order: :asc) %></th>
+      <th scope="col">
         <% if @q %>
           <%= search_form_for @q do |f| %>
             <%= f.input :status_eq, as: :select, collection:[[1, t('tasks.status_pending')], [2, t('tasks.status_proceeding')], [3, t('tasks.status_done')]], 
@@ -24,9 +22,8 @@
             <%= f.submit class:"btn btn-outline-dark" , style: 'display: none;', id: "btn-status"%>
           <% end %>
         <% end %>
-      </td>
-      <td><%= t('attributes.users.action') %></td>
-  
+      </th>
+      <th><%= t('attributes.users.action') %></th>
     </tr>
   </thead>
   
