@@ -1,12 +1,11 @@
 <h1><%=t("tasks.index_task")%></h1>
+<%#= link_to "新增任務", new_task_path %>
 
-<%= link_to "新增任務", new_task_path %>
+<%= paginate @tasks, theme: 'twitter-bootstrap-4' %>
 <% if params[:q] %>
   <h4>搜尋結果共: <%= @tasks.count %> 筆 </h4>
 <% end %>
-
-<%= paginate @tasks, theme: 'twitter-bootstrap-4' %>
-<table>
+<table class= "table table-hover">
   <thead>
     <tr>
       <th scope="col"><%= sort_link(@q, :id, t("tasks.task_id"), id: "title", default_order: :desc) %></th>
@@ -49,6 +48,8 @@
     <% end %>
   
 </table>
+
+<%= button_to t("tasks.create"), new_task_path ,class:"btn btn-outline-dark", method: "get"%>
 
 <script>
 
