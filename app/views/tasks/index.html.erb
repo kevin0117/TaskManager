@@ -5,7 +5,9 @@
 </div>
 
 <%= link_to "新增任務", new_task_path %>
-
+<% if params[:q] %>
+  <h4>搜尋結果共: <%= @tasks.count %> 筆 </h4>
+<% end %>
 <table>
   <thead>
     <tr>
