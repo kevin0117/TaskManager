@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks
-
-  root 'tasks#index'
+  #PAGE
+  root 'pages#index'
+  # root 'tasks#index'
 end
