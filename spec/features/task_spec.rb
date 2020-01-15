@@ -18,9 +18,9 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text('建立成功')
     end
     scenario '建立任務失敗' do
-      visit '/'
+      visit '/tasks'
 
-      click_link '新增任務'
+      click_button '新增任務'
       expect(current_path).to eq(new_task_path)
 
       fill_in 'task_title', with: ''
@@ -39,7 +39,7 @@ RSpec.feature 'Task', type: :feature do
       task1 = FactoryBot.create(:task, content: 'buy apple')
       task2 = FactoryBot.create(:task, content: 'buy orange')
 
-      visit '/'
+      visit '/tasks'
       within 'tr:nth-child(2)' do
         click_on '編輯'
       end
@@ -51,7 +51,7 @@ RSpec.feature 'Task', type: :feature do
     scenario '刪除任務成功' do
       task1 = FactoryBot.create(:task, content: 'task1')
       task2 = FactoryBot.create(:task, content: 'tFactoryBot')
-      visit '/'
+      visit '/tasks'
       within 'tr:nth-child(2)' do
         click_link '刪除'
       end
@@ -63,7 +63,7 @@ RSpec.feature 'Task', type: :feature do
     scenario '任務列表以建立時間排序' do
       task1 = FactoryBot.create(:task, title: 'task1')
       task2 = FactoryBot.create(:task, title: 'task2')
-      visit '/'
+      visit '/tasks'
       within 'tr:nth-child(2)' do
         expect(page).to have_content('task2')
       end
@@ -81,7 +81,7 @@ RSpec.feature 'Task', type: :feature do
                                  title: 'task2',
                                  task_begin: 'Tue, 9 Nov 2019 01:13:00 CST +08:00',
                                  task_end: 'Fri, 29 Nov 2019 01:13:00 CST +08:00')
-      visit '/'
+      visit '/tasks'
       click_link '任務結束'
 
       within 'tr:nth-child(2)' do
@@ -94,7 +94,7 @@ RSpec.feature 'Task', type: :feature do
     scenario '查詢功能搜尋成功' do
       task1 = FactoryBot.create(:task, title: 'title_A')
       task2 = FactoryBot.create(:task, title: 'title_A')
-      visit '/'
+      visit '/tasks'
       fill_in 'q_title_or_content_cont', with: 'title_A'
       click_button '搜尋'
 
@@ -106,7 +106,7 @@ RSpec.feature 'Task', type: :feature do
       task_2 = FactoryBot.create(:task, title: 'task_2', priority: 'normal')
       task_3 = FactoryBot.create(:task, title: 'task_3', priority: 'urgent')
 
-      visit '/'
+      visit '/tasks'
       click_link '優先順序'
 
       within 'tr:nth-child(2)' do
