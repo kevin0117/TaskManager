@@ -31,6 +31,8 @@ Things you may want to cover:
      - 下 git push heroku master
      - 下 bundle install 指令安裝相關套件
      - 執行 heroku run rails db:migrate
-
+ 
+* Task Manager Webiste Demo
+    - https://taskmanager0117.herokuapp.com
 
 * ...
