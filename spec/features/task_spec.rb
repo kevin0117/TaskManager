@@ -63,7 +63,6 @@ RSpec.feature 'Task', type: :feature do
     scenario '任務列表以建立時間排序' do
       task1 = FactoryBot.create(:task, title: 'task1')
       task2 = FactoryBot.create(:task, title: 'task2')
-      task3 = FactoryBot.create(:task, title: 'task3')
       visit '/'
       within 'tr:nth-child(2)' do
         expect(page).to have_content('task2')
@@ -82,10 +81,6 @@ RSpec.feature 'Task', type: :feature do
                                  title: 'task2',
                                  task_begin: 'Tue, 9 Nov 2019 01:13:00 CST +08:00',
                                  task_end: 'Fri, 29 Nov 2019 01:13:00 CST +08:00')
-      task3 = FactoryBot.create(:task,
-                                title: 'task3',
-                                task_begin: 'Tue, 26 Nov 2019 01:13:00 CST +08:00',
-                                task_end: 'Wed, 27 Nov 2019 01:13:00 CST +08:00')
       visit '/'
       click_link '任務結束'
 
@@ -105,6 +100,24 @@ RSpec.feature 'Task', type: :feature do
 
       expect(page).to have_content('title_A')
       expect(page).to have_text('搜尋結果共: 2 筆')
+    end
+    scenario '任務列表以優先順序排序' do
+      task_1 = FactoryBot.create(:task, title: 'task_1', priority: 'low')
+      task_2 = FactoryBot.create(:task, title: 'task_2', priority: 'normal')
+      task_3 = FactoryBot.create(:task, title: 'task_3', priority: 'urgent')
+
+      visit '/'
+      click_link '優先順序'
+
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content('task_3')
+      end
+      within 'tr:nth-child(3)' do
+        expect(page).to have_content('task_2')
+      end
+      within 'tr:nth-child(4)' do
+        expect(page).to have_content('task_1')
+      end
     end
   end
 end
