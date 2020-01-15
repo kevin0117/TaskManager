@@ -26,9 +26,13 @@
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <%= form_tag(tasks_path, method: 'get', class: 'd-flex') do %>
+      <form class="form-inline my-2 my-lg-0">
+        <%= search_form_for @q do |f| %>
+          <%= f.search_field :title_or_content_cont, class:"form-control mr-sm-2", type:"search", placeholder:"搜尋標題或內容"%>
+          <%= f.submit class: "btn btn-outline-success my-2 my-sm-0" %>
+        <% end %>
+      </form>
+    <% end %>
   </div>
 </nav>

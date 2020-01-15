@@ -6,6 +6,8 @@ gem 'simple_form', '~> 5.0', '>= 5.0.1'
 gem 'rails-i18n', '~> 6.0'
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
+gem 'aasm', '~> 5.0', '>= 5.0.6'
+gem 'ransack', '~> 2.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 # Use PostgreSQL as the database for Active Record
@@ -36,6 +38,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'hirb-unicode', '~> 0.0.5'
   gem 'rspec-rails', '~> 3.9'
+  gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'faker', '~> 2.10', '>= 2.10.1'
 end
 
 group :development do
