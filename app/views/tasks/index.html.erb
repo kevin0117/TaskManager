@@ -10,6 +10,7 @@
     <tr>
       <th scope="col"><%= sort_link(@q, :id, t("tasks.task_id"), id: "title", default_order: :desc) %></th>
       <th scope="col"><%= t("tasks.task_title") %></th>
+      <th scope="col"><%= t("tasks.task_owner") %></th>
       <th scope="col"><%= sort_link(@q, :priority, t("tasks.task_priority"), id: "priority", default_order: :desc) %></th>
       <th scope="col"><%= t("tasks.task_begin") %></th>
       <th scope="col"><%= sort_link(@q, :task_end, t("tasks.task_end"), id: "task_end", default_order: :asc) %></th>
@@ -31,6 +32,7 @@
     <tr>
       <td><%= task.id %></td>
       <td><%= link_to task.title, task_path(task) %></td>
+      <td><%= task.user.username %></td>
       <td><%= t("tasks.priority_#{task.priority}") %></td>
       <td><%= task.task_begin.to_s(:short) %></td>
       <td><%= task.task_end.to_s(:short) %></td>      

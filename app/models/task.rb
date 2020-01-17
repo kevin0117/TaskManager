@@ -3,6 +3,7 @@
 # rubocop:disable Style/AsciiComments
 # Your comment
 class Task < ApplicationRecord
+  belongs_to :user
   enum priority: { low: 1, normal: 2, urgent: 3 }
   enum status: { pending: 1, proceeding: 2, done: 3 }
   validates :title, presence: true
