@@ -5,7 +5,7 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit show update destroy]
   def index
-    @q = Task.ransack(params[:q])
+    @q = Task.includes(:user).ransack(params[:q])
     @tasks = @q.result(distinct: true).order(created_at: :desc).page(params[:page])
   end
 
