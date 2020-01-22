@@ -9,7 +9,7 @@ FactoryBot.define do
     task_end { Faker::Time.forward(days: 23, period: :morning) }
     priority { Faker::Number.between(from: 1, to: 3) }
     status { Faker::Number.between(from: 1, to: 3) }
-
+    user_id { Faker::Number.between(from: 1, to: 3) }
     # 測試
     trait :complete do
       status { 3 }
