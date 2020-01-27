@@ -1,0 +1,12 @@
+<h3> <%= error_message %> </h3>
+
+<%= simple_form_for user do |form| %>
+  <div class="wrap">
+    <%= form.input :username, label: t("attributes.users.username") %> 
+    <%= form.input :email, label: t("attributes.users.email") %>
+    <%= form.input :password, label: t("attributes.users.password") %>
+   
+    <%= form.submit%>
+  </div>
+
+<% end %>
