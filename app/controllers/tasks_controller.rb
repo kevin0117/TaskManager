@@ -46,7 +46,11 @@ class TasksController < ApplicationController
   def destroy
     return redirect_to tasks_path, notice: '刪除成功' if @task.destroy
   end
-
+  
+  def user
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).page params[:page]
+  end
   private
 
   def find_task
