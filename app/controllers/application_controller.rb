@@ -5,6 +5,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale, :set_ransack_obj
   around_action :switch_locale
+  helper_method :current_user
 
   # 設定語系
   def set_locale
@@ -31,6 +32,11 @@ class ApplicationController < ActionController::Base
   # 設定Ransack::Search 的實體
   def set_ransack_obj
     @q = Task.ransack(params[:q])
+  end
+
+  # 設定當下登入的使用者
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 end
 # rubocop:enable Style/AsciiComments
