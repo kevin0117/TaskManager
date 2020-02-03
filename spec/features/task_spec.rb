@@ -5,6 +5,9 @@
 require 'rails_helper'
 
 RSpec.feature 'Task', type: :feature do
+  before :all do
+    FactoryBot.create(:user)
+  end
   describe 'Feature spec/功能測試' do
     scenario '建立任務成功' do
       visit '/tasks/new'
