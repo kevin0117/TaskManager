@@ -5,7 +5,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale, :set_ransack_obj
   around_action :switch_locale
-  helper_method :current_user
+  helper_method :current_user, :logged_in?
 
   # 設定語系
   def set_locale
@@ -37,6 +37,16 @@ class ApplicationController < ActionController::Base
   # 設定當下登入的使用者
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+  # 確認使用者是否已登入
+  def logged_in?
+    !!current_user
+  end
+  # 進入任務管理頁面必須先登入
+  def login_check
+    if !logged_in?
+      redirect_to root_path, notice: '請先登入'
+    end
   end
 end
 # rubocop:enable Style/AsciiComments
