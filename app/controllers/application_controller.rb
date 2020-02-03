@@ -48,5 +48,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, notice: '請先登入'
     end
   end
+  # 讓使用者只能管理自己的帳戶
+  def same_user_check
+    if !(current_user.id == @user.id) && !@current_user.admin
+      redirect_to tasks_path, notice: "你只能編輯或刪除自己的帳戶"
+    end
+  end
 end
 # rubocop:enable Style/AsciiComments
