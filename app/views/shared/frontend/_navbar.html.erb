@@ -24,15 +24,42 @@
         <% end %>
       </form>
     <% end %>
-    <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= t('.language') %>
-        </a>
-        <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
-          <%= link_to('中文', :locale => 'zh-TW', class: 'dropdown-item') %>
-          <div class="dropdown-divider"></div> 
-          <%= link_to('English', :locale => 'en', class: 'dropdown-item') %>
-        </div>
-      </div>
+
+    <ul class="navbar-nav">
+        <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.username.upcase %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to t('.my_task'), user_tasks_path(current_user) , class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>          
+            <%= link_to t('.new_task'), new_task_path , class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
+            <%= link_to t('.settings'), edit_user_path(current_user) , class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
+            <%= link_to t('.logout'), logout_path, method:'delete' , class: 'dropdown-item'%>
+          </div>
+        </li> 
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "登入", login_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "註冊", sign_up_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= t('.language') %>
+          </a>
+          <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
+            <%= link_to('中文', :locale => 'zh-TW', class: 'dropdown-item') %>
+            <div class="dropdown-divider"></div> 
+            <%= link_to('English', :locale => 'en', class: 'dropdown-item') %>
+          </div>
+        </li>       
+    </ul>
+
   </div>
 </nav>
