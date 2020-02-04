@@ -5,21 +5,21 @@
 require 'rails_helper'
 
 RSpec.feature 'Task', type: :feature do
+  let(:user) { FactoryBot.create(:user) }
+  let(:task) { FactoryBot.create(:task, user_id: user.id) }
+
   describe 'Feature spec/功能測試' do
     scenario '建立任務成功' do
-      visit '/tasks/new'
-      fill_in 'task_title', with: 'Shopping'
-      fill_in 'task_content', with: 'buy milk'
-      select '2018', from: 'task_task_begin_1i'
-      select '2019', from: 'task_task_end_1i'
-      select '還好', from: 'task_priority'
-      select '未進行', from: 'task_status'
+      login_user
+      click_button '新增任務'
+      fill_in_task_info
       click_button '送出'
       expect(page).to have_text('建立成功')
     end
+
     scenario '建立任務失敗' do
       visit '/tasks'
-
+      login_user
       click_button '新增任務'
       expect(current_path).to eq(new_task_path)
 
@@ -36,33 +36,35 @@ RSpec.feature 'Task', type: :feature do
     end
 
     scenario '編輯任務成功' do
-      task1 = FactoryBot.create(:task, content: 'buy apple')
-      task2 = FactoryBot.create(:task, content: 'buy orange')
-
-      visit '/tasks'
+      login_user
+      click_button '新增任務'
+      fill_in_task_info
+      click_button '送出'
       within 'tr:nth-child(2)' do
-        click_on '編輯'
+        click_link '編輯'
       end
-      fill_in 'task_content', with: 'apple'
+      fill_in 'task_title', with: 'apple'
       click_button '送出'
       expect(page).to have_text('更新成功')
     end
 
     scenario '刪除任務成功' do
-      task1 = FactoryBot.create(:task, content: 'task1')
-      task2 = FactoryBot.create(:task, content: 'tFactoryBot')
+      FactoryBot.create(:task, title: 'task1')
+      FactoryBot.create(:task, title: 'task2')
+      login_user
       visit '/tasks'
       within 'tr:nth-child(2)' do
         click_link '刪除'
       end
 
-      expect(page).not_to have_content('task1')
+      expect(page).not_to have_title('task1')
       expect(page).to have_text('刪除成功')
     end
 
     scenario '任務列表以建立時間排序' do
-      task1 = FactoryBot.create(:task, title: 'task1')
-      task2 = FactoryBot.create(:task, title: 'task2')
+      FactoryBot.create(:task, title: 'task1')
+      FactoryBot.create(:task, title: 'task2')
+      login_user
       visit '/tasks'
       within 'tr:nth-child(2)' do
         expect(page).to have_content('task2')
@@ -72,15 +74,16 @@ RSpec.feature 'Task', type: :feature do
       end
     end
 
-    scenario "任務列表以結束時間排序" do
-      task1 = FactoryBot.create(:task,
-                                title: 'task1',
-                                task_begin: 'Tue, 26 Nov 2019 01:13:00 CST +08:00',
-                                task_end: 'Wed, 27 Nov 2019 01:13:00 CST +08:00')
-      task2 = FactoryBot.create(:task,
-                                 title: 'task2',
-                                 task_begin: 'Tue, 9 Nov 2019 01:13:00 CST +08:00',
-                                 task_end: 'Fri, 29 Nov 2019 01:13:00 CST +08:00')
+    scenario '任務列表以結束時間排序' do
+      FactoryBot.create(:task,
+                        title: 'task1',
+                        task_begin: 'Tue, 26 Nov 2019 01:13:00 CST +08:00',
+                        task_end: 'Wed, 27 Nov 2019 01:13:00 CST +08:00')
+      FactoryBot.create(:task,
+                        title: 'task2',
+                        task_begin: 'Tue, 9 Nov 2019 01:13:00 CST +08:00',
+                        task_end: 'Fri, 29 Nov 2019 01:13:00 CST +08:00')
+      login_user
       visit '/tasks'
       click_link '任務結束'
 
@@ -92,8 +95,9 @@ RSpec.feature 'Task', type: :feature do
       end
     end
     scenario '查詢功能搜尋成功' do
-      task1 = FactoryBot.create(:task, title: 'title_A')
-      task2 = FactoryBot.create(:task, title: 'title_A')
+      FactoryBot.create(:task, title: 'title_A')
+      FactoryBot.create(:task, title: 'title_A')
+      login_user
       visit '/tasks'
       fill_in 'q_title_or_content_cont', with: 'title_A'
       click_button '搜尋'
@@ -102,10 +106,10 @@ RSpec.feature 'Task', type: :feature do
       expect(page).to have_text('搜尋結果共: 2 筆')
     end
     scenario '任務列表以優先順序排序' do
-      task_1 = FactoryBot.create(:task, title: 'task_1', priority: 'low')
-      task_2 = FactoryBot.create(:task, title: 'task_2', priority: 'normal')
-      task_3 = FactoryBot.create(:task, title: 'task_3', priority: 'urgent')
-
+      FactoryBot.create(:task, title: 'task_1', priority: 'low')
+      FactoryBot.create(:task, title: 'task_2', priority: 'normal')
+      FactoryBot.create(:task, title: 'task_3', priority: 'urgent')
+      login_user
       visit '/tasks'
       click_link '優先順序'
 
@@ -118,6 +122,23 @@ RSpec.feature 'Task', type: :feature do
       within 'tr:nth-child(4)' do
         expect(page).to have_content('task_1')
       end
+    end
+
+    private
+
+    def login_user
+      visit login_path
+      fill_in('session[email]', with: user.email)
+      fill_in('session[password]', with: user.password)
+      click_button '送出'
+    end
+    def fill_in_task_info
+      fill_in 'task_title', with: 'shopping'
+      fill_in 'task_content', with: 'buy milk'
+      select '2018', from: 'task_task_begin_1i'
+      select '2019', from: 'task_task_end_1i'
+      select '還好', from: 'task_priority'
+      select '未進行', from: 'task_status'
     end
   end
 end
