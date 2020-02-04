@@ -4,6 +4,7 @@
 # Your comment
 class TasksController < ApplicationController
   before_action :find_task, only: %i[edit show update destroy]
+  before_action :login_check
   def index
     @q = Task.includes(:user).ransack(params[:q])
     @tasks = @q.result(distinct: true).order(created_at: :desc).page(params[:page])
@@ -15,8 +16,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    # 暫時把任務都分配給第一位使用者
-    @task.update(user_id: 1)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice: '建立成功'
     else
@@ -46,6 +46,11 @@ class TasksController < ApplicationController
 
   def destroy
     return redirect_to tasks_path, notice: '刪除成功' if @task.destroy
+  end
+
+  def user
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).page params[:page]
   end
 
   private

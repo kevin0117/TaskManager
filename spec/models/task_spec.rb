@@ -8,6 +8,7 @@ RSpec.describe Task, type: :model do
     context '如果任務建立成功時...' do
       it '全部欄位正確填寫完成' do
         task = FactoryBot.build(:task)
+        user = FactoryBot.build(:user)
         expect(task).to be_valid
       end
       it '狀態欄位可以是空白，因為預設是pending' do
