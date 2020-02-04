@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.update(user_id: rand(1..3))
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice: '建立成功'
     else
