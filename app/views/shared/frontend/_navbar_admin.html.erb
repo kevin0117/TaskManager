@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
+  <%= link_to "Task Manager", root_path, class: 'navbar-brand' %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to t('tasks.index_task'), admin_tasks_path , class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to t('tasks.index_user'), admin_users_path , class: 'nav-link' %>
+      </li>
+    </ul>
+    <%= form_tag(admin_tasks_path, method: 'get', class: 'd-flex') do %>
+      <form class="form-inline my-2 my-lg-0">
+        <%= search_form_for @q do |f| %>
+          <%= f.search_field :title_or_content_cont, class:"form-control mr-sm-2", type:"search", placeholder:"搜尋標題或內容"%>
+          <%= f.submit class:"btn btn-outline-light my-2 my-sm-0" %>
+        <% end %>
+      </form>
+    <% end %>
+
+    <ul class="navbar-nav">
+        <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.username.upcase %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to t('attributes.tasks.my_task'), task_admin_user_path(current_user) , class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>          
+            <%= link_to t('attributes.tasks.new_task'), new_admin_task_path , class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
+            <%= link_to t('attributes.tasks.setting'), edit_admin_user_path(current_user) , class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
+            <%= link_to t('attributes.tasks.logout'), admin_logout_path, method:'delete' , class: 'dropdown-item'%>
+          </div>
+        </li> 
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "登入", admin_login_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%#= link_to "註冊", admin_sign_up_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= t('attributes.tasks.language') %>
+          </a>
+          <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
+            <%= link_to('中文', :locale => 'zh-TW', class: 'dropdown-item') %>
+            <div class="dropdown-divider"></div> 
+            <%= link_to('English', :locale => 'en', class: 'dropdown-item') %>
+          </div>
+        </li>       
+    </ul>
+
+  </div>
+</nav>
