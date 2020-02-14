@@ -45,6 +45,12 @@ class Admin::UsersController < Admin::BaseController
       end
     end
   end
+  
+  # 取得使用者的所有任務
+  def task
+    @q = @user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).page params[:page]
+  end
 
   private
 
