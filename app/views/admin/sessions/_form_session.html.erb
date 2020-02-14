@@ -1,0 +1,9 @@
+<h3> <%= error_message %> </h3>
+
+<%= simple_form_for(:session, url: admin_login_path) do |form| %>
+<%= form.input :email, label: "信箱" %>
+<%= form.input :password, label: "密碼" %>
+
+<%= form.submit "登入"%>
+  
+<% end %>
