@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  # ADMIN
+  namespace :admin, path: 'splatoon' do
+    resources :tasks
+    resources :users do
+      member do
+        get :task
+      end
+    end
+    get 'sign_up', to: 'users#new'
+    get 'login', to: 'sessions#new'
+    post 'login', to: 'sessions#create'
+    delete 'logout', to: 'sessions#destroy'
+  end
   # TASK
   resources :tasks do
     collection do
