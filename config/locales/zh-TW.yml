@@ -213,7 +213,7 @@ zh-TW:
 
   shared:
     frontend:
-      navbar:
+       navbar:
         language: "語言"
         user_info: "個人資料"
         my_task: "我的任務"
@@ -274,5 +274,12 @@ zh-TW:
       task_count: "任務數量"
       backend: "後台 "
       tag: "標籤"
+      my_task: "我的任務"
+      new_task: "新增任務"
+      edit_title: "編輯任務"
+      setting: "設定"
+      logout: "登出"
+      language: "語言"
+
 
 
