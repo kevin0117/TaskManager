@@ -1,9 +1,8 @@
 class Admin::UsersController < Admin::BaseController
   #  the order of before_action matters here
-  before_action :login_check, except: [:new]
   before_action :find_user, only:[:edit,:show, :update, :destroy, :task]
   before_action :same_user_check, only: [:edit,:update, :destroy]
-  #  before_action :admin_check
+
   def index
     @users = User.all
   end

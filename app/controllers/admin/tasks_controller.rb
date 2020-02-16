@@ -4,7 +4,7 @@
 # Your comment
 class Admin::TasksController < Admin::BaseController
   before_action :find_task, only: %i[edit show update destroy]
-  before_action :login_check
+
   def index
     @q = Task.includes(:user).ransack(params[:q])
     @tasks = @q.result(distinct: true).order(created_at: :desc).page(params[:page])
