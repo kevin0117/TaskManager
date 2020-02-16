@@ -12,6 +12,9 @@
       <li class="nav-item">
         <%= link_to t('tasks.index_user'), admin_users_path , class: 'nav-link' %>
       </li>
+      <li class="nav-item">
+        <%= link_to "前台", user_tasks_path(current_user) , class: 'nav-link' %>
+      </li>
     </ul>
     <%= form_tag(admin_tasks_path, method: 'get', class: 'd-flex') do %>
       <form class="form-inline my-2 my-lg-0">

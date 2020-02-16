@@ -9,7 +9,7 @@
       <li class="nav-item active">
         <%= link_to t('tasks.index_task'), tasks_path , class: 'nav-link' %>
       </li>
-      <% if logged_in? %>
+      <% if logged_in? && current_user.admin? %>
         <li class="nav-item">
           <%= link_to t('attributes.tasks.backend'), admin_users_path , class: 'nav-link' %>
         </li>
