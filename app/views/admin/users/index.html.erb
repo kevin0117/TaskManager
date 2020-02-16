@@ -5,6 +5,7 @@
     <tr>
       <td><%= t('attributes.users.username') %></td>
       <td><%= t('attributes.users.email') %></td>
+      <td><%= t('attributes.users.role') %>
       <td><%= t('attributes.tasks.task_count') %></td>
       <td><%= t('attributes.users.action') %></td>
     </tr>
@@ -15,6 +16,7 @@
       <tr>
       <td><%= link_to user.username, task_admin_user_path(user) %></td>
       <td><%= user.email %></td>
+      <td><%= user_role(user.admin) %>
       <td><%= user.tasks.count %></td> <%# 顯示使用者的任務數量 %>
       <td>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
