@@ -1,5 +1,8 @@
 class Admin::SessionsController < Admin::BaseController
   before_action :find_session_user, only: %i[create delete]
+  skip_before_action :login_check, only: %i[new create]
+  skip_before_action :admin_check
+  
   def new; end
 
   def create
