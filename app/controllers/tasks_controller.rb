@@ -6,8 +6,12 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[edit show update destroy]
   before_action :login_check
   def index
-    @q = Task.includes(:user).ransack(params[:q])
-    @tasks = @q.result(distinct: true).order(created_at: :desc).page(params[:page])
+    @q = Task.includes(:user, :tags).ransack(params[:q])
+    @tasks = if params[:tag]
+               Task.tagged_with(params[:tag]).page(params[:page])
+             else
+               @q.result(distinct: true).order(created_at: :desc).page(params[:page])
+             end
   end
 
   def new
@@ -65,7 +69,9 @@ class TasksController < ApplicationController
                                  :task_begin,
                                  :task_end,
                                  :priority,
-                                 :status)
+                                 :status,
+                                 :all_tags,
+                                 :tag)
   end
 end
 # rubocop:enable Style/AsciiComments
