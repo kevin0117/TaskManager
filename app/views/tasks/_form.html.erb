@@ -8,9 +8,6 @@
   <%= form.input :task_end, label: t("tasks.task_end") %>
   <%= form.input :priority, as: :select, collection:[['low', t('tasks.priority_low')], ['normal', t('tasks.priority_normal')], ['urgent', t('tasks.priority_urgent')]], label_method: :second, value_method: :first, label: t("tasks.task_priority") %>
   <%= form.input :status, as: :select, collection:[['pending', t('tasks.status_pending')], ['proceeding', t('tasks.status_proceeding')], ['done', t('tasks.status_done')]], label_method: :second, value_method: :first, label: t("tasks.task_status") %>
-
+  <%= form.input :all_tags, label: "標籤" %>
 <%= form.submit t("tasks.submit") %>
 <% end %>
-
-            <%= link_to('中文', :locale => 'zh-TW') %>
-            <%= link_to('English', :locale => 'en') %>

@@ -124,6 +124,54 @@ RSpec.feature 'Task', type: :feature do
       end
     end
 
+    scenario '新增標籤與建立任務成功', tags_feature: true do
+      login_user
+      click_button '新增任務'
+      fill_in_task_info
+      fill_in 'task_all_tags', with: 'coding, rails'
+      click_button '送出'
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content('coding')
+        expect(page).to have_content('rails')
+      end
+      expect(page).to have_text('建立成功')
+    end
+
+    scenario '從導覽列進行標籤搜尋任務', tags_feature: true do
+      login_user
+      click_button '新增任務'
+      fill_in_task_info
+      fill_in 'task_all_tags', with: 'coding, ruby'
+      click_button '送出'
+      select 'ruby', from: 'q_tags_name_eq'
+      click_button '搜尋'
+      within 'tr:nth-child(2)' do
+        expect(page).to have_content('ruby')
+      end
+      expect(page).to have_content('搜尋結果共: 1 筆')
+    end
+
+    scenario '從任務首頁進行標籤搜尋任務', tags_feature: true do
+      login_user
+      click_button '新增任務'
+      fill_in_task_info
+      fill_in 'task_all_tags', with: 'ruby'
+      click_button '送出'
+      click_button '新增任務'
+      fill_in_task_info
+      fill_in 'task_all_tags', with: 'coding, ruby'
+      click_button '送出'
+      within 'tr:nth-child(2)' do
+        click_link 'ruby'
+      end      
+      expect(page).to have_content('ruby')
+      expect(page).to have_content('ruby coding')
+      within 'tr:nth-child(3)' do
+        click_link 'coding'
+      end 
+      expect(page).to have_content('ruby coding')
+    end
+
     private
 
     def login_user

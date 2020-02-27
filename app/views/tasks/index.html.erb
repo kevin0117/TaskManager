@@ -1,5 +1,4 @@
 <h1><%=t("tasks.index_task")%></h1>
-<%#= link_to "新增任務", new_task_path %>
 
 <%= paginate @tasks, theme: 'twitter-bootstrap-4' %>
 <% if params[:q] %>
@@ -10,6 +9,7 @@
     <tr>
       <th scope="col"><%= sort_link(@q, :id, t("tasks.task_id"), id: "title", default_order: :desc) %></th>
       <th scope="col"><%= t("tasks.task_title") %></th>
+      <th scope="col"><%= t("attributes.tasks.tag") %></th>
       <th scope="col"><%= t("tasks.task_owner") %></th>
       <th scope="col"><%= sort_link(@q, :priority, t("tasks.task_priority"), id: "priority", default_order: :desc) %></th>
       <th scope="col"><%= t("tasks.task_begin") %></th>
@@ -26,12 +26,11 @@
       <th><%= t('attributes.users.action') %></th>
     </tr>
   </thead>
-  
-  
     <% @tasks.each do |task| %>
     <tr>
       <td><%= task.id %></td>
       <td><%= link_to task.title, task_path(task) %></td>
+      <td><%= display_tag(task.tags.map(&:name)) %></td>
       <td><%= task.user.username %></td>
       <td><%= t("tasks.priority_#{task.priority}") %></td>
       <td><%= task.task_begin.to_s(:short) %></td>
@@ -62,6 +61,5 @@ $( document ).on('turbolinks:load', function() {
   status.addEventListener('change', () => {
     document.querySelector('#btn-status').click();
   });
-
 });
 </script>

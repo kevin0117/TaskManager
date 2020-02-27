@@ -3,6 +3,8 @@
 # rubocop:disable Style/AsciiComments
 # Your comment
 class Task < ApplicationRecord
+  has_many :taggings
+  has_many :tags, through: :taggings, dependent: :delete_all
   belongs_to :user
   enum priority: { low: 1, normal: 2, urgent: 3 }
   enum status: { pending: 1, proceeding: 2, done: 3 }
@@ -40,6 +42,21 @@ class Task < ApplicationRecord
       # puts "--------------------------"
       errors.add(:task, '任務結束日期不能比開始日期早')
     end
+  end
+  # Getter
+  def all_tags
+    # tags.map{|t| t.name}.join(',')
+    tags.map(&:name).join(', ')
+  end
+  # Setter
+  def all_tags=(names)
+    self.tags = names.split(',').map do |name|
+      Tag.where(name: name.strip).first_or_create
+    end
+  end
+
+  def self.tagged_with(name)
+    Tag.find_by!(name: name).tasks
   end
 end
 # rubocop:enable Style/AsciiComments
