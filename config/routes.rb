@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # TAG
+  get 'tags/:tag', to: 'tasks#index', as: :tag
+
   # ADMIN
   namespace :admin, path: 'splatoon' do
     resources :tasks
