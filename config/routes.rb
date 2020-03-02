@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # Error pages
+  match '/404', to: 'errors#not_found', via: :all
+  match '/500', to: 'errors#server_error', via: :all
+
   # TAG
   get 'tags/:tag', to: 'tasks#index', as: :tag
 
