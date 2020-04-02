@@ -1,7 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   #  the order of before_action matters here
   before_action :find_user, only:[:edit,:show, :update, :destroy, :task]
-  before_action :same_user_check, only: [:edit,:update, :destroy]
 
   def index
     @users = User.all
@@ -35,10 +34,19 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    if @user.destroy
-      redirect_to admin_users_path, notice: '刪除帳戶成功'
+    if @user != current_user
+      if @user.destroy
+        redirect_to admin_users_path, notice: '刪除帳戶成功'
+      else
+        redirect_to admin_users_path, notice: @user.errors.full_messages.to_sentence
+      end
     else
-      redirect_to admin_users_path, notice: @user.errors.full_messages.to_sentence
+      if @user.destroy
+        session[:user_id] = nil
+        redirect_to admin_users_path, notice: '刪除帳戶成功'
+      else
+        redirect_to admin_users_path, notice: @user.errors.full_messages.to_sentence
+      end
     end
   end
 

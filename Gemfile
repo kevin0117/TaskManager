@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'simple_form', '~> 5.0', '>= 5.0.2'
 gem 'rails-i18n', '~> 6.0'
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
