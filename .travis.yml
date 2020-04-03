@@ -3,6 +3,7 @@ rvm:
   - 2.6.3
 services:
   - postgresql
+  - redis-server
 env:
   - DB=pgsql
 install:
