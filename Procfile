@@ -1,1 +1,1 @@
-mailworker: bundle exec sidekiq -c 2
+bundle exec sidekiq -q default -q mailers
